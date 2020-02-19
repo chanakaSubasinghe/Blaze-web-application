@@ -40,13 +40,36 @@
                     <div class="row">
                      <a href="/gallery/photos/{{this.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
                         &nbsp;
-                         <form action="/gallery/photos/{{this.id}}?_method=DELETE" method="POST"> 
+                         {{!-- <form action="/gallery/photos/{{this.id}}?_method=DELETE" method="POST"> 
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                          </form>
+                          </form> --}}
                         <!-- Button trigger modal -->
-                          {{!-- <button type="button" id="deleteD" data-photoID="{{this.id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                          <button type="button" id="deleteD" data-photoID="{{this.id}}" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete{{this.id}}">
                             Delete
-                          </button> --}}
+                          </button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="delete{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Do you really want to delete this photo? This process cannot be undone.
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                      <form action="/gallery/photos/{{this.id}}?_method=DELETE" method="POST"> 
+                                        <button type="submit" class="btn btn-danger">Delete anyway</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                     </div>
                 
                 </div>
@@ -56,31 +79,6 @@
           {{/each}}
           
         </div>
-          {{#each photos}}
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          Do you really want to delete this photo? This process cannot be undone.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <form action="/gallery/photos/{{this.id}}?_method=DELETE" method="POST"> 
-                            <button type="submit" class="btn btn-danger">Delete anyway</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-          {{/each}}
     </section>
       
       <ul class="pagination justify-content-center">
