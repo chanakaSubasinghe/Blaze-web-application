@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/gallery-grid-system.css">
+    <link rel="icon" href="/img/12.png">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script> 
+
+</head>
+
+<body>
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="/">
+          <img src="/img/Blaze-03.png" width="120" class="d-inline-block align-top" style="margin-left: 60px">
+        </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><h6>Home</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/items"><h6>Shop</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/gallery/photos"><h6>Gallery</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/achievements"><h6>Achievements</h6></a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/contact-us"><h6>Contact us</h6></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  <div class="container">
+    {{#checklength success 0}}
+      <div class="alert alert-success margin-top" role="alert">{{success}}</div>
+    {{/checklength}}
+
+    {{#checklength error 0}}
+      <div class="alert alert-danger margin-top" role="alert">{{error}}</div>
+    {{/checklength}}
+  </div>
+
+

@@ -1,0 +1,111 @@
+
+{{>header}}
+
+<title>Shop</title>
+
+<div class="container admin-container">
+
+    <h1 class="mt-4 mb-3">Admin Panel
+      <small>Edit item</small>
+    </h1>
+
+    <div class="row">
+
+      <div class="col-lg-4 mb-4">
+            <img class="card-img-top" src="/items/{{item.id}}/itemPic">
+            
+            <form class="needs-validation" action="/items/itemPic/{{item.id}}?_method=PATCH" method="POST" enctype="multipart/form-data" novalidate>
+
+              <div class="form-row">
+                <div class="col-md-12 mb-3">
+                  <br>
+                    <label for="validationCustom03">Item image<span class="required">*</span></label>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="itemPic" accept="image/*" required>
+                    <label class="custom-file-label" for="customFile">Change image</label>
+                        <div class="invalid-feedback">
+                          Please change image.
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-dark btn-lg btn-block">Update image</button>
+            </form>
+      </div>
+
+      <div class="col-lg-8 mb-4">
+
+        <div class="d-none d-lg-block alert alert-warning" role="alert">
+          <h4 class="alert-heading">Note!</h4>
+            <p class="mb-2">Try to make item name short and sweet and select the suitable category.</p>
+            <p class="mb-2">Item image size must be in between 0 MB and 1 MB and resolution should be in 250 pixels wide and 250 pixels high.</p>
+        </div>
+        
+
+        <div class="container col-lg-8 mx-auto">
+
+          <form class="needs-validation" action="/items/{{item.id}}?_method=PATCH" method="POST" novalidate>
+            
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom01">Item name<span class="required">*</span></label>
+                <input type="text" class="form-control" value="{{item.name}}" name="name" required>
+                <div class="invalid-feedback">
+                  Please provide a item name.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom02">Category<span class="required">*</span></label>
+                <select class="form-control" name="category" required>
+                        <option value="{{item.category}}">{{item.category}}</option>
+                        <option value="Bag">Bag</option>
+                        <option value="Beachwear">Beachwear</option>
+                        <option value="Cap">Cap</option>
+                        <option value="Hat">Hat</option>
+                        <option value="Hawaiian shirt">Hawaiian shirt</option>
+                        <option value="Shirt">Shirt</option>
+                        <option value="Sleeveless shirt">Sleeveless shirt</option>
+                        <option value="Stickers">Sticker</option>
+                        <option value="T-shirt">T-shirt</option>
+                        <option value="V-neck shirt">V-neck shirt</option>
+                        <option value="Wrist bands">Wrist band</option>
+                      </select>
+                        <div class="invalid-feedback">
+                  Please provide item category.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="validationCustom03">Price<span class="required">*</span></label>
+                <input type="number" class="form-control" value="{{item.price}}" name="price" required>
+                <div class="invalid-feedback">
+                  Please provide a price.
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-dark" type="submit">Update</button>
+          </form>
+
+          <div class="float-right">
+            <a href="/items">Back to shop</a>
+          </div>
+        </div>
+       
+
+      </div>
+    </div>
+</div>
+
+  {{>footer}}
+
+<script src="/js/form-validation.js"></script>
+
+</body>
+</html>

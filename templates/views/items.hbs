@@ -1,0 +1,162 @@
+
+{{>header}}
+
+<title>Shop</title>
+
+  {{#checklength items 0}}
+
+<!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h1 class="my-4">Blaze shop</h1>
+        <div class="list-group">
+          <a href="/items" class="list-group-item list-group-item-action active">All</a>
+          {{#each categories}}
+          <a href="/items/?page=1&category={{this}}" class="list-group-item list-group-item-action">{{this}}</a>
+          {{/each}}
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="row my-5">
+
+          {{#each items}}
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-10">
+              <img class="card-img-top" src="/items/{{this.id}}/itemPic" alt="">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <p style="color: #007bff">{{this.name}}</p>
+                </h5>
+                <p><b>Rs.{{this.price}}</b></p>
+      
+              </div>
+              <div class="card-footer">
+              {{#if ../user}}
+                <div class="float-right">
+                    <div class="row">
+                     <a href="/items/{{this.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
+                        &nbsp;
+                          <form action="/items/{{this.id}}?_method=DELETE" method="POST"> 
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                          <!-- Button trigger modal -->
+                          {{!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                            Delete
+                          </button> --}}
+                    </div>
+         
+                </div>
+              {{/if}}  
+              </div>
+            </div>
+          </div>
+          {{/each}}
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Do you really want to delete this item? This process cannot be undone.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                          <form action="/items/{{this.id}}?_method=DELETE" method="POST"> 
+                            <button type="submit" class="btn btn-danger">Delete anyway</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+         
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+
+
+      <ul class="pagination justify-content-center">
+        <li class="page-item" id="first">
+          <a class="page-link" href="#" tabindex="-1">First</a>
+        </li>
+        <li class="page-item disabled" id="prev">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item" id="next">
+          <a class="page-link" href="{{this}}">Next</a>
+        </li>
+        <li class="page-item" id="last">
+          <a class="page-link" href="#" tabindex="-1">Last</a>
+        </li>
+      </ul>
+
+
+    {{else}}
+
+
+ 	    <div class="empty">
+          <h1>There are no items to display :(</h1>
+          <h3>Please stay with us!</h3>
+		  </div>
+
+    {{/checklength}}
+
+{{>footer}}
+
+</body>
+<script>
+
+      //first
+      $('#first').find('a').attr('href','/items?page=1&category={{category}}') 
+
+      //last
+      $('#last').find('a').attr('href','/items?page={{total}}&category={{category}}') 
+
+      //next page
+      if({{page}} >= {{total}}){
+
+        $('#next').addClass('disabled')
+
+      }else {
+
+        $('#next').removeClass('disabled')
+        var next_page_no = {{page}} + 1;
+        $('#next').find('a').attr('href','/items?page=' + next_page_no + '&category={{category}}')
+
+      }
+
+      //previous page
+        if({{page}} <= 1){
+
+        $('#prev').addClass('disabled')
+
+      }else {
+
+        $('#prev').removeClass('disabled')
+        var prev_page_no = {{page}} - 1;
+        $('#prev').find('a').attr('href','/items?page=' + prev_page_no + '&category={{category}}')
+
+      }
+</script>
+</html>

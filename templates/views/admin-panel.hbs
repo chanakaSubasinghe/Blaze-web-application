@@ -1,0 +1,326 @@
+
+{{>header}}
+
+<title>Admin panel</title>
+
+<div class="container admin-container">
+
+    <h1 class="mt-4 mb-3">Admin Panel</h1>
+
+    <div class="row">
+      <div class="col-lg-3 mb-4 nounderline">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+          <a class="list-group-item list-group-item-action" id="list-addPhoto-list" data-toggle="list" href="#list-addPhoto" role="tab" aria-controls="addPhoto">Upload photo</a>
+          <a class="list-group-item list-group-item-action" id="list-uploadItem-list" data-toggle="list" href="#list-uploadItem" role="tab" aria-controls="uploadItem">Attach item</a>
+          <a class="list-group-item list-group-item-action" id="list-addVideoLink-list" data-toggle="list" href="#list-addVideoLink" role="tab" aria-controls="addVideoLink">Add video link</a>
+          <a class="list-group-item list-group-item-action" id="list-accountSettings-list" data-toggle="list" href="#list-accountSettings" role="tab" aria-controls="accountSettings">Account Settings</a>
+          
+          <button type="button" class="btn btn-outline-dark btn-md btn-block margin-top" data-toggle="modal" data-target="#logout">Sign out</button>
+
+          <!-- Modal -->
+            <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure want to log out?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <form action="/users/logout" method="post">
+                      <button type="submit" class="btn btn-danger">Sign out</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <button type="button" class="btn btn-outline-danger btn-md btn-block margin-top" data-toggle="modal" data-target="#logoutall">Sign out of all devices</button>
+
+          <!-- Modal -->
+            <div class="modal fade" id="logoutall" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure want to log out from all other devices?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <form action="/users/logoutAll" method="post">
+                      <button type="submit" class="btn btn-danger">Sign out all</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 mb-4">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                  
+                  <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">Note!</h4>
+                    <p class="mb-2">Your carousel image size must be in between 0 MB and 1 MB.</p>
+                    <p class="mb-2">Resolution should be in 1600 pixels wide and 600 pixels high for a attractive carousel image.</p>
+                    
+                  </div>
+
+                  <section class="gallery-block grid-gallery">
+
+
+                    <div class="row">
+                      
+                      {{#each carousels}}
+                        <div class="col-md-6 col-lg-4 item">
+                            
+                            <a class="lightbox" href="/carousels/{{this.id}}/pic.png">
+                                <img class="img-fluid image scale-on-hover" src="/carousels/{{this.id}}/pic.png">
+                            </a>
+
+                            <hr>
+                            <div class="float-right">
+                            <a href="/carousels/{{this.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
+                            </div>
+                    
+                        </div>
+                      {{/each}}
+                    </div>
+
+                  </section>
+          </div>
+
+          {{!-- add photo --}}
+          <div class="tab-pane fade" id="list-addPhoto" role="tabpanel" aria-labelledby="list-addPhoto-list">
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Note!</h4>
+                <p class="mb-2">You can upload only 10 images at a time.</p>
+                <p class="mb-2">Your image size must be in between 0 MB and 1 MB.</p>
+                <p class="mb-2">Resolution should be in 1280 pixels wide and 853 pixels high.</p>
+              </div>
+        
+
+              <div class="container col-lg-8 mx-auto">
+
+                <form class="needs-validation" action="/gallery/photos" method="POST" enctype="multipart/form-data" novalidate>
+                  
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom03">Gallery image<span class="required">*</span></label>
+                      <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="pic" accept="image/*" multiple required>
+                      <label class="custom-file-label" for="customFile">Choose an image</label>
+                        <div class="invalid-feedback">
+                            Please upload an image.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col text-center">
+                    <button type="submit" class="btn btn-dark btn-sm">Upload photo</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+
+          {{!-- upload an item --}}
+          <div class="tab-pane fade" id="list-uploadItem" role="tabpanel" aria-labelledby="list-uploadItem-list">
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Note!</h4>
+                <p class="mb-2">Try to make item name short and sweet and select the suitable category.</p>
+                <p class="mb-2">Item image size must be in between 0 MB and 1 MB and resolution should be in 250 pixels wide and 250 pixels high.</p>
+                
+              </div>
+        
+
+              <div class="container col-lg-8 mx-auto">
+
+                <form class="needs-validation" action="/items" method="POST" enctype="multipart/form-data" novalidate>
+                  
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Item name<span class="required">*</span></label>
+                      <input type="text" class="form-control" placeholder="Blaze white-shirt" name="name" required>
+                      <div class="invalid-feedback">
+                        Please provide a item name.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom02">Category<span class="required">*</span></label>
+                      <select class="form-control" name="category" required>
+                        <option value="">Select category</option>
+                        <option value="Bag">Bag</option>
+                        <option value="Beachwear">Beachwear</option>
+                        <option value="Cap">Cap</option>
+                        <option value="Hat">Hat</option>
+                        <option value="Hawaiian shirt">Hawaiian shirt</option>
+                        <option value="Shirt">Shirt</option>
+                        <option value="Sleeveless shirt">Sleeveless shirt</option>
+                        <option value="Stickers">Sticker</option>
+                        <option value="T-shirt">T-shirt</option>
+                        <option value="V-neck shirt">V-neck shirt</option>
+                        <option value="Wrist bands">Wrist band</option>
+                      </select>
+ 
+                        <div class="invalid-feedback">
+                          Please provide item category.
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom03">Price<span class="required">*</span></label>
+                      <input type="number" class="form-control" placeholder="1500" name="price" required>
+                      <div class="invalid-feedback">
+                        Please provide a price.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="validationCustom03">Item image<span class="required">*</span></label>
+                      <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="itemPic" accept="image/*" required>
+                      <label class="custom-file-label" for="customFile">Choose an image</label>
+                        <div class="invalid-feedback">
+                            Please upload an image.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col text-center">
+                    <button type="submit" class="btn btn-dark btn-md">Upload item</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+
+          {{!-- Add video link --}}
+          <div class="tab-pane fade" id="list-addVideoLink" role="tabpanel" aria-labelledby="list-addVideoLink-list">
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Note!</h4>
+                <p class="mb-2">Try to make video title short and sweet.</p>
+                <p class="mb-2">Make sure to paste the correct youtube video URL.</p>
+              </div>
+        
+
+              <div class="container col-lg-8 mx-auto">
+
+                <form class="needs-validation" action="/gallery/videos" method="POST" novalidate>
+                  
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Video title<span class="required">*</span></label>
+                      <input type="text" class="form-control" placeholder="Blaze solo beatboxing freestyle" name="title" required>
+                      <div class="invalid-feedback">
+                        Please provide a video title.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom03">Video URL<span class="required">*</span></label>
+                      <input type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=2Mz5wkgB6sE" name="videoID" required>
+                      <div class="invalid-feedback">
+                        Please provide a embed code.
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="col text-center">
+                    <button type="submit" class="btn btn-dark btn-md">Add video link</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+
+          {{!-- Account Settings --}}
+          <div class="tab-pane fade" id="list-accountSettings" role="tabpanel" aria-labelledby="list-accountSettings-list">
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Note!</h4>
+                <p class="mb-2">Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, and can not be contain "password".</p>
+              </div>
+        
+
+              <div class="container col-lg-8 mx-auto">
+
+                <form class="needs-validation" action="/users/{{user.id}}?_method=PATCH" method="POST" novalidate>
+                  
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Email</label>
+                      <input type="email" class="form-control" value="{{user.email}}" name="email" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom03">Current password<span class="required">*</span></label>
+                      <input type="password" class="form-control"  name="password" required>
+                      <div class="invalid-feedback">
+                        Please provide a current password.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom03">New password<span class="required">*</span></label>
+                      <input type="password" class="form-control"  name="newPassword" minlength="8" maxlength="20" required>
+                      <div class="invalid-feedback">
+                        Your password must be 8-20 characters long.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom03"> Re-type new password<span class="required">*</span></label>
+                      <input type="password" class="form-control"  name="conNewPassword" minlength="8" maxlength="20" required>
+                      <div class="invalid-feedback">
+                        Please re-type new password.
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="col text-center">
+                    <button type="submit" class="btn btn-dark btn-md">Change password</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</div>
+
+  {{>footer}}
+
+<script src="/js/image-slide-show.js"></script>
+<script src="/js/form-validation.js"></script>
+</body>
+</html>

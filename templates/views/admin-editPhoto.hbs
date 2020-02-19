@@ -1,0 +1,59 @@
+
+{{>header}}
+
+<title>Gallery</title>
+
+<div class="container admin-container">
+
+    <h1 class="mt-4 mb-3">Admin Panel
+      <small>Edit photo</small>
+    </h1>
+
+    <div class="row">
+
+      <div class="col-lg-8 mb-4">
+            <img class="card-img-top" src="/gallery/photos/{{photo.id}}/pic.png">
+        
+      </div>
+
+      <div class="col-lg-4 mb-4">
+
+        <div class="d-none d-lg-block alert alert-warning" role="alert">
+          <h4 class="alert-heading">Note!</h4>
+            <p class="mb-2">Your image size must be in between 0 MB and 1 MB.</p>
+            <p class="mb-2">Resolution should be in 1280 pixels wide and 853 pixels high.</p>
+        </div>
+
+            <form class="needs-validation" action="/gallery/photos/{{photo.id}}?_method=PATCH" method="POST" enctype="multipart/form-data" novalidate>
+
+              <div class="form-row">
+                <div class="col-md-12 mb-3">
+                  <br>
+                    <label for="validationCustom03">Image<span class="required">*</span></label>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="pic" accept="image/*" required>
+                    <label class="custom-file-label" for="customFile">Change image</label>
+                        <div class="invalid-feedback">
+                          Please change image.
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-dark btn-lg btn-block">Update image</button>
+            </form>
+
+            <br>
+            <div class="float-right">
+              <a href="/gallery/photos">Back to Gallery</a>
+            </div>          
+      </div>
+    </div>
+</div>
+
+  {{>footer}}
+
+<script src="/js/form-validation.js"></script>
+
+</body>
+</html>

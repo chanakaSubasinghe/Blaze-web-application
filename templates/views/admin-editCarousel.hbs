@@ -1,0 +1,60 @@
+
+{{>header}}
+
+<title>Admin panel</title>
+
+<div class="container admin-container">
+
+    <h1 class="mt-4 mb-3">Admin Panel
+      <small>Edit carousel</small>
+    </h1>
+
+    <div class="row">
+
+      <div class="col-lg-8 mb-4">
+            <img class="card-img-top" src="/carousels/{{carousel.id}}/pic.png">
+        
+      </div>
+
+      <div class="col-lg-4 mb-4">
+
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading">Note!</h4>
+          <p class="mb-2">Your carousel image size must be in between 0 MB and 1 MB.</p>
+          <p class="mb-2">Resolution should be in 1600 pixels wide and 600 pixels high for a attractive carousel image.</p>
+
+        </div>
+
+            <form class="needs-validation" action="/carousels/{{carousel.id}}?_method=PATCH" method="POST" enctype="multipart/form-data" novalidate>
+
+              <div class="form-row">
+                <div class="col-md-12 mb-3">
+                  <br>
+                    <label for="validationCustom03">Carousel</label>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="carouselPic" accept="image/*" required>
+                    <label class="custom-file-label" for="customFile">Change image</label>
+                        <div class="invalid-feedback">
+                          Please change carousel.
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-dark btn-lg btn-block">Update image</button>
+            </form>
+            
+            <br>
+            <div class="float-right">
+              <a href="/adminPanel">Back to Admin panel</a>
+            </div>       
+      </div>
+    </div>
+</div>
+
+  {{>footer}}
+
+<script src="/js/form-validation.js"></script>
+
+</body>
+</html>
