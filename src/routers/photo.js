@@ -24,27 +24,17 @@ router.post(
 	upload.array('pic', 10),
 	async (req, res) => {
 		try {
-			// const promises = req.files.map((file) => {
-			// 	return sharp(file.buffer).resize({ width: 1280, height: 853 }).png().toBuffer();
-			// });
+			const promises = req.files.map((file) => {
+				return sharp(file.buffer).resize({ width: 1280, height: 853 }).png().toBuffer();
+			});
 
-			// const buffers = await Promise.all(promises);
+			const buffers = await Promise.all(promises);
 
-			// const photos = buffers.map((buffer) => {
-			// 	return new Photo({ pic: buffer, owner: req.user });
-			// });
+			const photos = buffers.map((buffer) => {
+				return new Photo({ pic: buffer, owner: req.user });
+			});
 
-			// await Photo.insertMany(photos);
-
-			for (let i = 0; i < req.files.length; i++) {
-				const buffer = await sharp(req.files[i].buffer).resize({ width: 1280, height: 853 }).png().toBuffer();
-				const photo = new Photo({
-					pic: buffer,
-					owner: req.user
-				});
-
-				await photo.save();
-			}
+			await Photo.insertMany(photos);
 
 			req.flash('success', 'Successfully added.');
 			res.redirect('/adminPanel');
@@ -95,7 +85,7 @@ router.get('/gallery/photos', async (req, res) => {
 		let total = Math.ceil(totalDocuments / pagination);
 		const totalPages = Array(total).fill().map((e, i) => i + 1);
 
-		const photos = await Photo.find({}).limit(pagination).skip((page - 1) * pagination);
+		const photos = await Photo.find({}).limit(pagination).skip((page - 1) * pagination).sort('-createdAt');
 
 		res.render('photo', {
 			photos,
