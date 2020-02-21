@@ -10,7 +10,7 @@ const session = require('express-session');
 
 const app = express();
 
-//flash messages
+// creating a session for store flash messages
 app.use(cookieParser());
 app.use(
 	session({
@@ -19,14 +19,16 @@ app.use(
 		secret: 'secret'
 	})
 );
-app.use(flash());
+
+// using flash for the application
+app.use(flash()); // for success and error messages
 
 //method-override
 app.use(methodOverride('_method'));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true })); // passing data from req.body
+app.use(express.json()); // using json for whole application
+app.use(cookieParser()); // using cookie for store user token
 
 //define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -41,31 +43,29 @@ hbs.registerPartials(partialsPath);
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
+// FOR APPLICATION DEVELOPING
+
 // app.use((req, res, next) => {
 // 	res.render('upgrading');
 // });
 
-// app.use(auth);
-
+// save user messages logged ii user in a session variables
 app.use((req, res, next) => {
 	res.locals.error = req.flash('error');
 	res.locals.success = req.flash('success');
-	res.locals.user = req.session.user;
+	res.locals.user = req.session.user; // save user to the session
 	next();
 });
 
 //handlebar handling for check length of success or error messages
 hbs.registerHelper('checklength', function(v1, v2, options) {
 	'use strict';
+
+	// condition
 	if (v1 && v1.length > v2) {
 		return options.fn(this);
 	}
 	return options.inverse(this);
-});
-
-hbs.registerHelper('inc', function(value, options) {
-	return parseInt(value) + 1;
-	// return options.
 });
 
 // assigning all routes to variables
