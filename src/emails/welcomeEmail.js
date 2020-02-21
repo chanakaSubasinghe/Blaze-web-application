@@ -14,7 +14,7 @@ const sendWelcomeEmail = (email, fullName) => {
                 <body>
 					<p>Hello! ${fullName},</p>
 					<p>Thank you for reaching out!</p>
-					<p>We are currently in the middle of our busy season so our reply may be delayed up to three days. We
+					<p>We are currently in the middle of our busy season and the wait time can vary depending on the volume of requests we are receiving. We
 					appreciate your patience while we look into this for you!</p>
 					<p>Thank you,</p>
 					<p>Blaze team</p>
