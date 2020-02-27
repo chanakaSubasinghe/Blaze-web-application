@@ -15,8 +15,8 @@ router.post('/users', async (req, res) => {
 
 		const token = await user.generateAuthToken();
 
-		res.cookie('auth_token', token, { secure: true, expires: new Date(Date.now() + 5000), httpOnly: true });
-		// res.cookie('auth_token', token);
+		// res.cookie('auth_token', token, { secure: true, expires: new Date(Date.now() + 5000), httpOnly: true });
+		res.cookie('auth_token', token);
 
 		res.status(201).send(user);
 	} catch (e) {
@@ -39,9 +39,8 @@ router.post('/login', async (req, res) => {
 			return res.redirect('/');
 		}
 
-		req.session.user = user;
-
-		res.cookie('auth_token', token, { secure: true, expires: new Date(Date.now() + 5000), httpOnly: true });
+		// res.cookie('auth_token', token, { expires: new Date(Date.now() + 5000), httpOnly: true });
+		res.cookie('auth_token', token);
 
 		req.flash('success', 'Successfully loggedIn');
 		res.status(200).redirect('/adminPanel');
@@ -57,8 +56,11 @@ router.post('/users/logout', auth, async (req, res) => {
 		req.user.tokens = req.user.tokens.filter((token) => {
 			return token.token !== req.token;
 		});
-		res.clearCookie('auth_token');
+
 		delete req.session.user;
+
+		res.clearCookie('auth_token');
+
 		await req.user.save();
 
 		req.flash('success', 'Successfully loggedOut.');
@@ -73,7 +75,9 @@ router.post('/users/logout', auth, async (req, res) => {
 router.post('/users/logoutAll', auth, async (req, res) => {
 	try {
 		req.user.tokens = [];
+
 		delete req.session.user;
+
 		res.clearCookie('auth_token');
 
 		await req.user.save();
@@ -81,7 +85,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 		req.flash('success', 'Successfully logged out from all devices.');
 		res.redirect('/');
 	} catch (e) {
-		req.flash('error', 'Something went wrong!');
+		req.flash('error', e.message);
 		res.status(500).redirect('/');
 	}
 });

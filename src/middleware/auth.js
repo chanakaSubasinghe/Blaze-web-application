@@ -23,6 +23,9 @@ const auth = async (req, res, next) => {
 		// assigning variables to request
 		req.token = token;
 		req.user = user;
+
+		req.session.user = user;
+
 		// }
 		next();
 	} catch (e) {
@@ -30,7 +33,7 @@ const auth = async (req, res, next) => {
 		res.clearCookie('auth_token');
 
 		req.flash('error', 'You need to be loggedIn to do that!'); // if there is an error throw an error
-		res.status(401).redirect('/');
+		res.status(401).redirect('/login');
 	}
 };
 
