@@ -84,7 +84,7 @@
 
                     <div class="row">
                       
-                      {{#each carousels}}
+                      {{!-- {{#each carousels}}
                         <div class="col-md-6 col-lg-4 item">
                             
                             <a class="lightbox" href="/carousels/{{this.id}}/pic.png">
@@ -97,7 +97,51 @@
                             </div>
                     
                         </div>
-                      {{/each}}
+                      {{/each}} --}}
+
+                      {{!-- till full payment --}}
+
+                      <div class="col-md-6 col-lg-4 item">
+                            
+                            <a class="lightbox" href="/carousels/{{carousel1.id}}/pic.png">
+                                <img class="img-fluid image scale-on-hover" src="/carousels/{{carousel1.id}}/pic.png">
+                            </a>
+
+                            <hr>
+                            <div class="float-right">
+                            <p class="text-danger">This facility has been blocked by <b>BlackCoffee</b> until full payment !!!</p>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 item">
+                            
+                            <a class="lightbox" href="/carousels/{{carousel2.id}}/pic.png">
+                                <img class="img-fluid image scale-on-hover" src="/carousels/{{carousel2.id}}/pic.png">
+                            </a>
+
+                            <hr>
+                            <div class="float-right">
+                            <a href="/carousels/{{carousel2.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 item">
+                            
+                            <a class="lightbox" href="/carousels/{{carousel3.id}}/pic.png">
+                                <img class="img-fluid image scale-on-hover" src="/carousels/{{carousel3.id}}/pic.png">
+                            </a>
+
+                            <hr>
+                            <div class="float-right">
+                            <a href="/carousels/{{carousel3.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
+                            </div>
+                    
+                        </div>
+
+                        {{!-- till full payment --}}
+
                     </div>
 
                   </section>

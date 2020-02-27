@@ -146,7 +146,9 @@ router.get('/adminPanel', auth, async (req, res) => {
 		const carousels = await Carousel.find({});
 		res.render('admin-panel', {
 			carousels,
-			user: req.user
+			carousel1: carousels[0], // -----------
+			carousel2: carousels[1], // until full payment
+			carousel3: carousels[2] // -----------
 		});
 	} catch (e) {
 		req.flash('error', 'Something went wrong!');
