@@ -15,7 +15,8 @@ router.post('/users', async (req, res) => {
 
 		const token = await user.generateAuthToken();
 
-		res.cookie('auth_token', token);
+		res.cookie('auth_token', token, { secure: true, expires: new Date(Date.now() + 5000), httpOnly: true });
+		// res.cookie('auth_token', token);
 
 		res.status(201).send(user);
 	} catch (e) {
@@ -40,7 +41,8 @@ router.post('/login', async (req, res) => {
 
 		req.session.user = user;
 
-		res.cookie('auth_token', token);
+		res.cookie('auth_token', token, { secure: true, expires: new Date(Date.now() + 5000), httpOnly: true });
+
 		req.flash('success', 'Successfully loggedIn');
 		res.status(200).redirect('/adminPanel');
 	} catch (e) {

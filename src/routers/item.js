@@ -148,7 +148,7 @@ router.get('/items', async (req, res) => {
 			category: req.query.category
 		});
 	} catch (e) {
-		req.flash('error', 'Something went wrong!'); // throw an error
+		req.flash('error', e.message); // throw an error
 		res.status(500).redirect('/');
 	}
 });

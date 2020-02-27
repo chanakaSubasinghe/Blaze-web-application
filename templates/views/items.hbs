@@ -45,9 +45,6 @@
                     <div class="row">
                      <a href="/items/{{this.id}}"><button class="btn btn-info btn-sm">Edit</button></a>
                         &nbsp;
-                          {{!-- <form action="/items/{{this.id}}?_method=DELETE" method="POST"> 
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                          </form> --}}
                           <!-- Button trigger modal -->
                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete{{this.id}}">
                             Delete
@@ -116,7 +113,6 @@
 
  	    <div class="empty">
           <h1>There are no items to display :(</h1>
-          <h3>Please stay with us!</h3>
 		  </div>
 
     {{/checklength}}

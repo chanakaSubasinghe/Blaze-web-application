@@ -17,8 +17,7 @@ const auth = async (req, res, next) => {
 
 		// if there is no user throw an error
 		if (!user) {
-			req.flash('error', 'No user found!');
-			return res.redirect('/');
+			throw new Error();
 		}
 
 		// assigning variables to request
@@ -28,6 +27,10 @@ const auth = async (req, res, next) => {
 		next();
 	} catch (e) {
 		req.flash('error', 'You need to be loggedIn to do that!'); // if there is an error throw an error
+
+		delete req.session.user;
+		res.clearCookie('auth_token');
+
 		res.status(401).redirect('/');
 	}
 };
