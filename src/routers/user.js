@@ -148,7 +148,8 @@ router.get('/adminPanel', auth, async (req, res) => {
 			carousels,
 			carousel1: carousels[0], // -----------
 			carousel2: carousels[1], // until full payment
-			carousel3: carousels[2] // -----------
+			carousel3: carousels[2], // -----------
+			user: req.user
 		});
 	} catch (e) {
 		req.flash('error', 'Something went wrong!');

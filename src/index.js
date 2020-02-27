@@ -45,9 +45,9 @@ app.use(express.static(publicDirectoryPath));
 
 // FOR APPLICATION DEVELOPING
 
-app.use((req, res, next) => {
-	res.render('upgrading');
-});
+// app.use((req, res, next) => {
+// 	res.render('upgrading');
+// });
 
 // save user messages logged ii user in a session variables
 app.use((req, res, next) => {
