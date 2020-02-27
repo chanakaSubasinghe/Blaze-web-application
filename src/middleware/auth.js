@@ -26,11 +26,10 @@ const auth = async (req, res, next) => {
 		// }
 		next();
 	} catch (e) {
-		req.flash('error', 'You need to be loggedIn to do that!'); // if there is an error throw an error
-
 		delete req.session.user;
 		res.clearCookie('auth_token');
 
+		req.flash('error', 'You need to be loggedIn to do that!'); // if there is an error throw an error
 		res.status(401).redirect('/');
 	}
 };
