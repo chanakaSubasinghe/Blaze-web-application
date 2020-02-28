@@ -24,26 +24,26 @@ const upload = multer({
 });
 
 //create Carousel
-router.post('/carousels', auth, upload.single('carouselPic'), async (req, res) => {
-	try {
-		// uploaded image resize with sharp and save it as a buffer
-		const buffer = await sharp(req.file.buffer).resize({ width: 1600, height: 600 }).png().toBuffer();
+// router.post('/carousels', auth, upload.single('carouselPic'), async (req, res) => {
+// 	try {
+// 		// uploaded image resize with sharp and save it as a buffer
+// 		const buffer = await sharp(req.file.buffer).resize({ width: 1600, height: 600 }).png().toBuffer();
 
-		//create a new object
-		const carousel = new Carousel({
-			carouselPic: buffer,
-			owner: req.user
-		});
+// 		//create a new object
+// 		const carousel = new Carousel({
+// 			carouselPic: buffer,
+// 			owner: req.user
+// 		});
 
-		// save it in the DB
-		await carousel.save();
+// 		// save it in the DB
+// 		await carousel.save();
 
-		//send the response
-		res.send(carousel);
-	} catch (e) {
-		res.status(400).send(e); // throw an error if there are any errors
-	}
-});
+// 		//send the response
+// 		res.send(carousel);
+// 	} catch (e) {
+// 		res.status(400).send(e); // throw an error if there are any errors
+// 	}
+// });
 
 //read photo
 router.get('/carousels/:id', auth, async (req, res) => {
